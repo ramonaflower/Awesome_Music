@@ -26,6 +26,11 @@ public class PlaySongPagerAdapter extends FragmentStatePagerAdapter {
         this.mList = mList;
         this.mIndex = mIndex;
     }
+    @Override
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
+    }
 
     @Override
     public Fragment getItem(int position) {

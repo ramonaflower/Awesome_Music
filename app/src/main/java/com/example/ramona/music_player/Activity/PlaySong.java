@@ -78,6 +78,7 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
                 mServicePlayMusic.getIndex(mIndex);
                 mServicePlayMusic.playSong();
             } else {
+                Log.e("vào","rồi");
                 mListSong.clear();
                 mListSong.addAll(mServicePlayMusic.returnListSong());
                 mIndex = mServicePlayMusic.returnIndex();
@@ -102,12 +103,12 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lt_play_song);
         initControl();
-
-        initData();
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         mAdapter = new PlaySongPagerAdapter(fragmentManager, mListSong, mIndex);
         mViewPager.setAdapter(mAdapter);
+        initData();
+
+        mAdapter.notifyDataSetChanged();
         mIndicator.setViewPager(mViewPager);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -135,11 +136,10 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
         Intent intent = getIntent();
         mBundle = intent.getExtras();
         if (mBundle != null) {
-            mListSong = mBundle.getParcelableArrayList(Constant.LIST_SONG_TO_PLAY_SONG);
+            List<SongEntities> temp = mBundle.getParcelableArrayList(Constant.LIST_SONG_TO_PLAY_SONG);
+            mListSong.clear();
+            mListSong.addAll(temp);
             mIndex = mBundle.getInt(Constant.SONG_INDEX_TO_PLAY_SONG);
-        } else {
-            mListSong.addAll(mServicePlayMusic.returnListSong());
-            mIndex = mServicePlayMusic.returnIndex();
         }
     }
 
