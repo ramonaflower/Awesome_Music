@@ -78,7 +78,10 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
                 mServicePlayMusic.getIndex(mIndex);
                 mServicePlayMusic.playSong();
             } else {
+                mListSong.clear();
                 mListSong.addAll(mServicePlayMusic.returnListSong());
+                mIndex = mServicePlayMusic.returnIndex();
+                mAdapter.notifyDataSetChanged();
             }
             updateSeekBar();
             upDateToolBar();
@@ -95,13 +98,15 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lt_play_song);
         initControl();
+
         initData();
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        mAdapter = new PlaySongPagerAdapter(fragmentManager, mListSong);
+        mAdapter = new PlaySongPagerAdapter(fragmentManager, mListSong, mIndex);
         mViewPager.setAdapter(mAdapter);
         mIndicator.setViewPager(mViewPager);
         if (mToolbar != null) {
@@ -132,6 +137,9 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
         if (mBundle != null) {
             mListSong = mBundle.getParcelableArrayList(Constant.LIST_SONG_TO_PLAY_SONG);
             mIndex = mBundle.getInt(Constant.SONG_INDEX_TO_PLAY_SONG);
+        } else {
+            mListSong.addAll(mServicePlayMusic.returnListSong());
+            mIndex = mServicePlayMusic.returnIndex();
         }
     }
 

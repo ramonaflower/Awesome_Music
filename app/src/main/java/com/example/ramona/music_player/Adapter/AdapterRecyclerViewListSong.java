@@ -21,13 +21,11 @@ public class AdapterRecyclerViewListSong extends RecyclerView.Adapter<AdapterRec
     private List<SongEntities> mListSong;
     private Context mContext;
     private SongEntities entities;
-    private int mSelectedItem;
     ClickListener mClickListener;
 
-    public AdapterRecyclerViewListSong(List<SongEntities> mListSong, Context mContext, int mSelectedItem) {
+    public AdapterRecyclerViewListSong(List<SongEntities> mListSong, Context mContext) {
         this.mListSong = mListSong;
         this.mContext = mContext;
-        this.mSelectedItem = mSelectedItem;
     }
 
     @Override
@@ -40,13 +38,6 @@ public class AdapterRecyclerViewListSong extends RecyclerView.Adapter<AdapterRec
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         entities = mListSong.get(position);
-        if (mSelectedItem == position && mSelectedItem >= 0) {
-            holder.mText_name_of_song.setTextColor(Color.RED);
-            holder.mText_name_of_artist.setTextColor(Color.RED);
-        } else {
-            holder.mText_name_of_song.setTextColor(Color.BLACK);
-            holder.mText_name_of_artist.setTextColor(Color.BLACK);
-        }
         holder.mText_name_of_song.setText(entities.getmSongName());
         holder.mText_name_of_artist.setText(entities.getmArtistName());
     }

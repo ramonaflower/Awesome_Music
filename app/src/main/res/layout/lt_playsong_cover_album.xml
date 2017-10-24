@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_cover_album"
-        android:src="@drawable/music"
+        android:src="@drawable/ic_notify"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_200sdp" />
 </LinearLayout>

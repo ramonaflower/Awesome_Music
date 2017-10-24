@@ -15,7 +15,6 @@ public class Models {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(path);
         byte[] art = retriever.getEmbeddedPicture();
-
         if( art != null ){
             return art;
         }

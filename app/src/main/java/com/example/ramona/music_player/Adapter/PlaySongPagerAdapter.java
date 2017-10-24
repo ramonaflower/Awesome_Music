@@ -19,29 +19,33 @@ import java.util.List;
 
 public class PlaySongPagerAdapter extends FragmentStatePagerAdapter {
     private List<SongEntities> mList = new ArrayList<SongEntities>();
+    private int mIndex;
 
-    public PlaySongPagerAdapter(FragmentManager fm, List<SongEntities> mList) {
+    public PlaySongPagerAdapter(FragmentManager fm, List<SongEntities> mList, int mIndex) {
         super(fm);
         this.mList = mList;
+        this.mIndex = mIndex;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragListSong= new FragmentPlaySongTransparent();
+        Fragment fragListSong = new FragmentPlaySongTransparent();
         Fragment fragCoverAlbum = new FragmentPlaySongCoverAlbum();
         Bundle bundle = new Bundle();
-        if (mList != null) {
+        if (mList.size() > 0) {
             switch (position) {
                 case 0:
                     bundle.putParcelableArrayList(Constant.PLAYSONG_TO_TRANSPARENT_FRAGMENT, (ArrayList<SongEntities>) mList);
                     fragListSong.setArguments(bundle);
                     return fragListSong;
                 case 1:
+                    bundle.putString("index", mList.get(mIndex).getmSongID() + "");
+                    fragCoverAlbum.setArguments(bundle);
                     return fragCoverAlbum;
             }
 
         }
-        return null;
+        return fragListSong;
     }
 
     @Override

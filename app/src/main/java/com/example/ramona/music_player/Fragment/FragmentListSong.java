@@ -41,7 +41,7 @@ public class FragmentListSong extends Fragment {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterRecyclerViewListSong(mList, this.getActivity(), -1);
+        mAdapter = new AdapterRecyclerViewListSong(mList, this.getActivity());
         mRecyclerView.setAdapter(mAdapter);
         initEvent();
         return view;

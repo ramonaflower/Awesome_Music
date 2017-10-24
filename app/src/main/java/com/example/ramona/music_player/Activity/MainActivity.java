@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
 
     public void GetListAlbum() {
         List<Integer> ListIDAlbum = new ArrayList<Integer>();
-        Log.e("ID Album", ListIDAlbum + "");
         for (int j = 0; j < mListSongInDB.size(); j++) {
             int IDAlbum = mListSongInDB.get(j).getmAlbumID();
             if (!ListIDAlbum.contains(IDAlbum)) {
@@ -278,6 +277,17 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_detail :
+                Intent intent = new Intent(MainActivity.this, Temp.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

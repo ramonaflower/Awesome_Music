@@ -26,6 +26,7 @@
         <service android:name="com.example.ramona.music_player.Service.ServicePlayMusic" />
         <activity android:name=".Activity.AlbumDetail"/>
         <activity android:name=".Activity.ArtistDetail"/>
+        <activity android:name=".Activity.Temp"/>
     </application>
 
 </manifest>

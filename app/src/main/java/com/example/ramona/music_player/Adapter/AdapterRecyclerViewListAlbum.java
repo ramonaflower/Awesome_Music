@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ramona.music_player.Entities.AlbumEntities;
+import com.example.ramona.music_player.Models;
 import com.example.ramona.music_player.R;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class AdapterRecyclerViewListAlbum extends RecyclerView.Adapter<AdapterRe
         holder.mIV_album_art.setImageBitmap(null);
         holder.mText_album_name.setText(entities.getmAlbumName());
         holder.mText_artist_name.setText(entities.getmArtistName());
-        Glide.with(mContext).load(getCoverAlbum(mList.get(holder.getLayoutPosition()).getmAlbumArt())).into(holder.mIV_album_art);
+        Glide.with(mContext).asBitmap().load(Models.getCoverAlbum(entities.getmAlbumArt())).into(holder.mIV_album_art);
     }
 
     @Override
@@ -56,15 +57,11 @@ public class AdapterRecyclerViewListAlbum extends RecyclerView.Adapter<AdapterRe
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            mText_album_name = itemView.findViewById(R.id.text_album_name_or_artist_name);
-            mText_artist_name = itemView.findViewById(R.id.text_artist_name_or_number_of_song_album);
-            mIV_album_art = itemView.findViewById(R.id.img_album_artist);
+            mText_album_name = (TextView) itemView.findViewById(R.id.text_album_name_or_artist_name);
+            mText_artist_name = (TextView) itemView.findViewById(R.id.text_artist_name_or_number_of_song_album);
+            mIV_album_art = (ImageView) itemView.findViewById(R.id.img_album_artist);
         }
     }
 
-    public byte[] getCoverAlbum(String path) {
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(path);
-        return mmr.getEmbeddedPicture();
-    }
+
 }
