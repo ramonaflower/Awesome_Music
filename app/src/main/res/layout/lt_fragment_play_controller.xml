@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_60sdp"
+    android:background="@color/colorPrimary"
+    android:layout_height="@dimen/_55sdp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -39,7 +40,7 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold" />
 
@@ -50,10 +51,13 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="@color/grey"
                 android:textSize="@dimen/_15ssp" />
         </LinearLayout>
 
         <LinearLayout
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -65,21 +69,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_skip_previous_black" />
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_skip_previous_white" />
 
             <ImageView
                 android:id="@+id/btn_play_pause_control"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_pause_black" />
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_pause_white" />
 
             <ImageView
                 android:id="@+id/btn_next_control"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_skip_next_black" />
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_skip_next_white" />
 
         </LinearLayout>
     </LinearLayout>

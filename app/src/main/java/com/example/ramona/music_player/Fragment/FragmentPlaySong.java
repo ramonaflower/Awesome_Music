@@ -120,11 +120,11 @@ public class FragmentPlaySong extends Fragment {
 
     public void updatePlayPauseBtn() {
         if (mIsPlaying) {
-            mBtn_play_pause.setImageResource(R.drawable.ic_pause_black);
+            mBtn_play_pause.setImageResource(R.drawable.ic_pause_white);
             mSpinningIMG.startAnimation(mRotateAnimation);
             mIsPlaying = false;
         } else {
-            mBtn_play_pause.setImageResource(R.drawable.ic_play_arrow_black);
+            mBtn_play_pause.setImageResource(R.drawable.ic_play_arrow_white);
             mSpinningIMG.clearAnimation();
             mIsPlaying = true;
         }

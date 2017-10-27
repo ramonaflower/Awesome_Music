@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:background="@color/transparent"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp">
@@ -44,6 +47,7 @@
 
         </LinearLayout>
         <ImageView
+            android:id="@+id/img_move"
             android:src="@drawable/ic_more"
             android:layout_weight="1"
             android:layout_width="0dp"

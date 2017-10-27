@@ -178,7 +178,7 @@ public class ServicePlayMusic extends Service {
         RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.lt_small_notifycation);
         remoteViews.setTextViewText(R.id.small_song_name, getSongName());
         remoteViews.setTextViewText(R.id.small_artist_name, getArtistName());
-        remoteViews.setImageViewResource(R.id.small_icon, R.drawable.music);
+        remoteViews.setImageViewResource(R.id.small_icon, R.drawable.ic_music);
 
         NotificationCompat.Builder compat = new NotificationCompat.Builder(this);
         NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);

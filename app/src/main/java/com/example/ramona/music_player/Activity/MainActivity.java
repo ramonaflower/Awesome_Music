@@ -102,9 +102,9 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
     }
 
     private void initControl() {
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mFrameLayout = (FrameLayout) findViewById(R.id.replace_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        mTabLayout = findViewById(R.id.tab_layout);
+        mFrameLayout = findViewById(R.id.replace_layout);
     }
 
     public void CheckPermission() {
@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
     public void SynDataToSQLite() {
         mListSongInDB.addAll(db.getAllSong());
 
-        List<Integer> ListIDFromDevice = new ArrayList<Integer>();
-        List<Integer> ListIDFromDB = new ArrayList<Integer>();
+        List<Integer> ListIDFromDevice = new ArrayList<>();
+        List<Integer> ListIDFromDB = new ArrayList<>();
 
         // List ID Song từ device
         for (int i = 0; i < mListSongInDevice.size(); i++) {
@@ -181,13 +181,13 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
                     mSongEntities.setmArtistID(cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)));
                     mListSongInDevice.add(mSongEntities);
                 } while (cursor.moveToNext());
+                cursor.close();
             }
         }
-        cursor.close();
     }
 
     public void GetListAlbum() {
-        List<Integer> ListIDAlbum = new ArrayList<Integer>();
+        List<Integer> ListIDAlbum = new ArrayList<>();
         for (int j = 0; j < mListSongInDB.size(); j++) {
             int IDAlbum = mListSongInDB.get(j).getmAlbumID();
             if (!ListIDAlbum.contains(IDAlbum)) {
@@ -211,8 +211,8 @@ public class MainActivity extends AppCompatActivity implements PlayControl {
     }
 
     public void GetListArtist() {
-        List<Integer> ListIDArtist = new ArrayList<Integer>();
-        Set<Integer> listIDAlbum = new HashSet<Integer>();
+        List<Integer> ListIDArtist = new ArrayList<>();
+        Set<Integer> listIDAlbum = new HashSet<>();
         for (int i = 0; i < mListSongInDB.size(); i++) {
             int IDArtist = mListSongInDB.get(i).getmArtistID();
             if (!ListIDArtist.contains(IDArtist)) {

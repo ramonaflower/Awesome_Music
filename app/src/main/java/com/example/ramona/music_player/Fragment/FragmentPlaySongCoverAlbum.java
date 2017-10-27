@@ -30,8 +30,7 @@ public class FragmentPlaySongCoverAlbum extends Fragment {
     private View mView;
     private String mID;
     private MyDatabase mDb;
-    private Bitmap mIMG;
-    private byte[] temp;
+    private byte[] mIMG;
     private SongEntities mSong;
 
     @Nullable
@@ -43,15 +42,16 @@ public class FragmentPlaySongCoverAlbum extends Fragment {
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
         mRotateAnimation.setInterpolator(new LinearInterpolator());
-        mRotateAnimation.setDuration(10000);
+        mRotateAnimation.setDuration(15000);
         mRotateAnimation.setRepeatCount(Animation.INFINITE);
         initControl();
         if (getArguments()!=null) {
             mID = getArguments().getString("index");
+            Log.e("ID", mID);
             mSong = mDb.getSongByID(mID);
-            temp = Models.getCoverAlbum(mSong.getmSongPath());
-            if (temp!=null){
-                Glide.with(getActivity().getApplicationContext()).asBitmap().load(temp).into(mImg_album_cover);
+            mIMG = Models.getCoverAlbum(mSong.getmSongPath());
+            if (mIMG!=null){
+                Glide.with(getActivity().getApplicationContext()).asBitmap().load(mIMG).into(mImg_album_cover);
             }
         }
         return mView;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.example.ramona.music_player.Constant;
 import com.example.ramona.music_player.Entities.SongEntities;
@@ -44,6 +45,7 @@ public class PlaySongPagerAdapter extends FragmentStatePagerAdapter {
                     fragListSong.setArguments(bundle);
                     return fragListSong;
                 case 1:
+                    Log.e("Index", mIndex+"");
                     bundle.putString("index", mList.get(mIndex).getmSongID() + "");
                     fragCoverAlbum.setArguments(bundle);
                     return fragCoverAlbum;
@@ -56,5 +58,9 @@ public class PlaySongPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return 2;
+    }
+
+    public void setIndex(final int index) {
+        mIndex = index;
     }
 }

@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/img_notify_cover_album"
         android:padding="@dimen/_10sdp"
-        android:src="@drawable/music"
+        android:src="@drawable/ic_music"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp" />
     <LinearLayout

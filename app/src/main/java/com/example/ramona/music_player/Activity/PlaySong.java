@@ -9,12 +9,10 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -23,7 +21,7 @@ import android.widget.TextView;
 import com.example.ramona.music_player.Adapter.PlaySongPagerAdapter;
 import com.example.ramona.music_player.Constant;
 import com.example.ramona.music_player.Entities.SongEntities;
-import com.example.ramona.music_player.Interface.ClickFromTranparentToPlaySong;
+import com.example.ramona.music_player.Interface.ClickFromTransparentToPlaySong;
 import com.example.ramona.music_player.R;
 import com.example.ramona.music_player.Service.ServicePlayMusic;
 import com.example.ramona.music_player.Service.ServicePlayMusic.MyBinder;
@@ -38,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Ramona on 10/2/2017.
  */
 
-public class PlaySong extends AppCompatActivity implements ClickFromTranparentToPlaySong{
+public class PlaySong extends AppCompatActivity implements ClickFromTransparentToPlaySong {
     private Toolbar mToolbar;
     private ImageView mBtn_play_pause, mBtn_next, mBtn_previous, mBtn_shuffle, mBtn_repeat;
     private TextView mText_start_time, mText_end_time;
@@ -46,13 +44,12 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
     private InkPageIndicator mIndicator;
     private SeekBar mSeekBar;
     private PlaySongPagerAdapter mAdapter;
-    private SongEntities entities;
-    private List<SongEntities> mListSong = new ArrayList<SongEntities>();
+    private List<SongEntities> mListSong = new ArrayList<>();
     private Runnable mUpdateSeekBar;
     private Handler mHandler;
     private ServicePlayMusic mServicePlayMusic;
     private int mProgress;
-    private int mIndex;
+    private int mIndex = 0;
     private double mTimeElapsed;
     private double mDuration;
     private boolean mIsBound = false;
@@ -63,8 +60,10 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Constant.BROADCAST_UPDATE_UI)) {
                 Bundle bundle = intent.getExtras();
-                mToolbar.setTitle(bundle.getString(Constant.UPDATE_TITLE_SONG));
-                mToolbar.setSubtitle(bundle.getString(Constant.UPDATE_ARTIST_NAME));
+                if (bundle != null) {
+                    mToolbar.setTitle(bundle.getString(Constant.UPDATE_TITLE_SONG));
+                    mToolbar.setSubtitle(bundle.getString(Constant.UPDATE_ARTIST_NAME));
+                }
             }
         }
     };
@@ -78,10 +77,10 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
                 mServicePlayMusic.getIndex(mIndex);
                 mServicePlayMusic.playSong();
             } else {
-                Log.e("vào","rồi");
                 mListSong.clear();
                 mListSong.addAll(mServicePlayMusic.returnListSong());
                 mIndex = mServicePlayMusic.returnIndex();
+                mAdapter.setIndex(mIndex);
                 mAdapter.notifyDataSetChanged();
             }
             updateSeekBar();
@@ -103,12 +102,10 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lt_play_song);
         initControl();
+        initData();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mAdapter = new PlaySongPagerAdapter(fragmentManager, mListSong, mIndex);
         mViewPager.setAdapter(mAdapter);
-        initData();
-
-        mAdapter.notifyDataSetChanged();
         mIndicator.setViewPager(mViewPager);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -119,16 +116,16 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
     }
 
     private void initControl() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_play_song);
-        mBtn_play_pause = (ImageView) findViewById(R.id.btn_play_pause);
-        mBtn_next = (ImageView) findViewById(R.id.btn_next_song);
-        mBtn_previous = (ImageView) findViewById(R.id.btn_previous_song);
-        mBtn_repeat = (ImageView) findViewById(R.id.btn_repeat);
-        mBtn_shuffle = (ImageView) findViewById(R.id.btn_shuffle);
-        mText_start_time = (TextView) findViewById(R.id.text_start_time_of_song);
-        mText_end_time = (TextView) findViewById(R.id.text_end_time_of_song);
-        mSeekBar = (SeekBar) findViewById(R.id.seekbar_play_song);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager_play_song);
+        mToolbar = findViewById(R.id.toolbar_play_song);
+        mBtn_play_pause = findViewById(R.id.btn_play_pause);
+        mBtn_next = findViewById(R.id.btn_next_song);
+        mBtn_previous = findViewById(R.id.btn_previous_song);
+        mBtn_repeat = findViewById(R.id.btn_repeat);
+        mBtn_shuffle = findViewById(R.id.btn_shuffle);
+        mText_start_time = findViewById(R.id.text_start_time_of_song);
+        mText_end_time = findViewById(R.id.text_end_time_of_song);
+        mSeekBar = findViewById(R.id.seekbar_play_song);
+        mViewPager = findViewById(R.id.view_pager_play_song);
         mIndicator = findViewById(R.id.indicator);
     }
 
@@ -306,8 +303,9 @@ public class PlaySong extends AppCompatActivity implements ClickFromTranparentTo
     public void clickToPlaySong(int position) {
         mServicePlayMusic.getIndex(position);
         mServicePlayMusic.playSong();
+        upDatePlayPauseBtn();
+        updateSeekBar();
     }
-
 
     //    private boolean isMyServiceRunning(Class<?> serviceClass) {
 //        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
